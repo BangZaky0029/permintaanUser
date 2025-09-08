@@ -84,10 +84,7 @@
     .typing{ display:inline-block; border-right:3px solid #ff2d6c; white-space:nowrap; overflow:hidden }
     .small{ font-size:14px; opacity:.7 }
 
-    /* QR Section */
-    .qr-wrap{ display:grid; grid-template-columns: 1fr; gap:16px; align-items:center; justify-items:center; margin-top:10px }
-    .qr-card{ background:#fff7fb; border:1px dashed #ffcfe1; padding:16px; border-radius:18px }
-    canvas{ image-rendering: pixelated }
+
 
     /* Footer */
     footer{ text-align:center; font-size:12px; opacity:.7; padding:20px 0 40px }
@@ -128,23 +125,7 @@
           <a class="btn" id="btnPlay" role="button">🎵 Putar Musik Lembut</a>
         </div>
 
-        <section style="margin-top:18px">
-          <h3 style="text-align:center; margin:8px 0 6px">QR Code untuk Link Halaman Ini</h3>
-          <p class="small" style="text-align:center">QR akan otomatis pakai URL halaman saat ini. Bisa diganti manual kalau mau.</p>
-          <div class="qr-wrap">
-            <div style="width:100%">
-              <label for="qrUrl" class="small">URL</label>
-              <input id="qrUrl" type="text" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid #ffd1e1; background:#fff; outline:none" />
-              <div class="actions" style="justify-content:flex-start; gap:8px; margin:10px 0 0">
-                <button id="genQR">🔄 Buat QR</button>
-                <button id="dlQR">⬇️ Download QR (PNG)</button>
-              </div>
-            </div>
-            <div class="qr-card">
-              <div id="qrcode"></div>
-            </div>
-          </div>
-        </section>
+
       </div>
     </main>
 
@@ -218,130 +199,7 @@
     });
   </script>
 
-  <!-- Inline QRCode generator (MIT) – minimal JS port of qrcode.js -->
-  <script>
-  /*! qrcode-generator (MIT) © Kazuhiko Arase – trimmed build for numeric/alnum/url */
-  (function(){function k(a){this.mode=h;this.data=a}function l(a){this.mode=m;this.data=a}function n(a){this.mode=p;this.data=a}var q=function(){var a=function(a){this.buffer=[];this.length=0;this.put=a?function(a,b){for(var c=0;c<b;c++)this.putBit(!!(a>>>b-c-1&1))}:function(a,b){for(var c=0;c<b;c++)this.putBit(!!(a&1<<b-c-1))};this.putBit=function(a){this.buffer.push(a);this.length++}};return{stringToBytes:function(a){for(var b=[],c=0;c<a.length;c++){var d=a.charCodeAt(c);128>d?b.push(d):2048>d?(b.push(192|d>>6),b.push(128|d&63)):(55296===(d&64512)&&c+1<a.length&&56320===(a.charCodeAt(c+1)&64512)?(d=65536+((d&1023)<<10)+(a.charCodeAt(c+1)&1023),b.push(240|d>>18,128|d>>12&63,128|d>>6&63,128|d&63)):(b.push(224|d>>12,128|d>>6&63,128|d&63)))}return b},
-  QRCodeModel:function(b,c){this.typeNumber=b;this.errorCorrectLevel=c;this.modules=null;this.moduleCount=0;this.dataCache=null;this.dataList=[];
-    this.make=function(){this.moduleCount=4*this.typeNumber+17; this.modules=Array(this.moduleCount); for(var i=0;i<this.moduleCount;i++){this.modules[i]=Array(this.moduleCount); for(var j=0;j<this.moduleCount;j++)this.modules[i][j]=null;} return this;};
-  }};}();
-  function r(a,b){if(void 0==a.length)throw Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=Array(a.length-c+1);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c];this.num[a.length-c]=b}
-  function t(a,b){this.totalCount=a;this.dataCount=b}
-  var u=[[],[new t(19,7),new t(16,10),new t(13,13),new t(9,17)],[new t(34,10),new t(28,16),new t(22,22),new t(16,28)],[new t(55,15),new t(44,26),new t(34,18),new t(26,22)],[new t(80,20),new t(64,18),new t(48,26),new t(36,16)],[new t(108,26),new t(86,24),new t(62,18),new t(46,22)]];
-  var v={L:1,M:0,Q:3,H:2};var h=2,m=4,p=8;
-  function w(a,b){this.typeNumber=a;this.errorCorrectLevel=b;this.modules=null;this.moduleCount=0;this.dataCache=null;this.dataList=[]}
-  w.prototype={addData:function(a){var b; /^[0-9]*$/.test(a)?b=new k(a):/^[0-9A-Z $%*+\-./:]*$/.test(a)?b=new l(a):b=new n(a); this.dataList.push(b); this.dataCache=null},
-  isDark:function(a,b){if(null==this.modules)throw Error("QR not built");return this.modules[a][b]},
-  getModuleCount:function(){return this.moduleCount},
-  make:function(){if(this.typeNumber<1){for(var a=1;a<u.length;a++){for(var b=0;b<4;b++){var c=u[a][b];if(this.getMaxLength(a,[v.L,v.M,v.Q,v.H][b])>=this.getDataLength()){this.typeNumber=a;this.errorCorrectLevel=[v.L,v.M,v.Q,v.H][b];break}}if(this.typeNumber)break}if(!this.typeNumber){this.typeNumber=4;this.errorCorrectLevel=v.M}}
-    this.makeImpl(!1,this.getBestMaskPattern()); return this;},
-  getDataLength:function(){return this.dataList.reduce(function(a,b){return a+("string"==typeof b.data?b.data.length:0)},0)},
-  getMaxLength:function(a,b){return u[a][[v.L,v.M,v.Q,v.H].indexOf(b)].dataCount},
-  makeImpl:function(a,b){this.moduleCount=4*this.typeNumber+17;this.modules=Array(this.moduleCount);for(var c=0;c<this.moduleCount;c++){this.modules[c]=Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++)this.modules[c][d]=null}
-    y(this,0,0);y(this,this.moduleCount-7,0);y(this,0,this.moduleCount-7);z(this);A(this,b);this.dataCache=B(this.errorCorrectLevel,this.typeNumber,this.dataList);C(this,this.dataCache);this.isBuilt=!0; return this;},
-  getBestMaskPattern:function(){return 0}};
-  function y(a,b,c){for(var d=-1;7>=d;d++)if(!(0>b+d||a.moduleCount<=b+d))for(var e=-1;7>=e;e++)0>c+e||a.moduleCount<=c+e||(a.modules[b+d][c+e]=0<=d&&6>=d&&(0==e||6==e)||0<=e&&6>=e&&(0==d||6==d)||2<=d&&4>=d&&2<=e&&4>=e)}
-  function z(a){for(var b=8;b<a.moduleCount-8;b++)null===a.modules[b][6]&&(a.modules[b][6]=0==b%2);for(b=8;b<a.moduleCount-8;b++)null===a.modules[6][b]&&(a.modules[6][b]=0==b%2)}
-  function A(a,b){for(var c=0;c<a.moduleCount;c++)for(var d=0;d<a.moduleCount;d++)null===a.modules[c][d]&&(a.modules[c][d]=0==(c*d+c+d+b)%2)}
-  function B(a,b,c){var d=new q.QRCodeModel(b,a); for(var e=0;e<c.length;e++) {if(c[e] && c[e].data) d.addData(c[e].data);} return d.make();}
-  function C(a,b){for(var c=0;c<b.modules.length;c++) for(var d=0;d<b.modules.length;d++) a.modules[c][d]=b.modules[c][d]}
-  window._MiniQR=w;
-  })();
-  </script>
-  <script>
-    const qrUrl=document.getElementById('qrUrl');
-    const qrBox=document.getElementById('qrcode');
-    const genBtn=document.getElementById('genQR');
-    const dlBtn=document.getElementById('dlQR');
 
-    function renderQR(text){
-      if (!text || text.trim() === '') {
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Error: URL tidak boleh kosong';
-        errorDiv.style.color = 'red';
-        qrBox.innerHTML = '';
-        qrBox.appendChild(errorDiv);
-        return null;
-      }
-      
-      qrBox.innerHTML='';
-      try {
-        const q = new _MiniQR(4, 1); // fixed size 4, EC-L
-        q.addData(text);
-        const result = q.make();
-        
-        // Verify modules are created properly
-        if (!q.modules || !q.getModuleCount()) {
-          throw new Error('QR code tidak dapat dibuat dengan benar');
-        }
-        
-        const size = Math.min(260, Math.floor(window.innerWidth*0.7));
-        const scale = Math.floor(size / q.getModuleCount());
-        const canvas=document.createElement('canvas');
-        const n=q.getModuleCount();
-        canvas.width=canvas.height=n*scale; const ctx=canvas.getContext('2d');
-        ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle='#111';
-        for(let r=0;r<n;r++) for(let c=0;c<n;c++) if(q.isDark(r,c)) ctx.fillRect(c*scale, r*scale, scale, scale);
-        qrBox.appendChild(canvas);
-        return canvas;
-      } catch(e) {
-        console.error('Error generating QR code:', e);
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Error generating QR code: ' + e.message;
-        errorDiv.style.color = 'red';
-        qrBox.appendChild(errorDiv);
-        return null;
-      }
-    }
-
-    function setDefaultURL(){
-      const url=new URL(window.location.href);
-      // Jika dihosting di GitHub Pages, URL akan berubah
-      // Pastikan QR code menggunakan URL yang benar
-      // Mendeteksi jika URL mengandung github.io
-      const isGitHubPages = url.hostname.includes('github.io');
-      
-      // Jika di GitHub Pages, pastikan path lengkap termasuk dalam QR code
-      qrUrl.value=url.toString();
-      return url.toString();
-    }
-
-    window.addEventListener('load',()=>{
-      const u=setDefaultURL();
-      renderQR(u);
-    });
-
-    genBtn.addEventListener('click',()=>{
-      const u=qrUrl.value.trim(); if(!u) return;
-      renderQR(u); confetti(.5,.5);
-    });
-
-    dlBtn.addEventListener('click',()=>{
-      const u=qrUrl.value.trim() || setDefaultURL();
-      if (!u) {
-        alert('URL tidak boleh kosong');
-        return;
-      }
-      
-      const cv=renderQR(u);
-      if (cv) {
-        try {
-          const a=document.createElement('a'); 
-          a.download='qr-maafin-aku.png'; 
-          a.href=cv.toDataURL('image/png'); 
-          a.click();
-          confetti(0.5, 0.5); // Tambahkan efek confetti saat berhasil download
-          setTimeout(() => confetti(0.3, 0.7), 300); // Tambah efek confetti kedua
-        } catch(e) {
-          console.error('Error downloading QR code:', e);
-          alert('Gagal mengunduh QR code: ' + e.message);
-        }
-      } else {
-        alert('Tidak dapat mengunduh QR code karena terjadi kesalahan saat pembuatan. Coba refresh halaman dan coba lagi.');
-      }
-    });
-  </script>
 
   <script>
     // Buttons actions
