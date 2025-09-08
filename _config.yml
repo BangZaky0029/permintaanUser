@@ -1,0 +1,15 @@
+# Konfigurasi GitHub Pages
+theme: jekyll-theme-cayman
+title: Maafin Aku
+description: Halaman permintaan maaf lucu & imut buat pacar
+baseurl: "/maaf"
+url: "https://username.github.io"
+
+# Pengaturan SEO
+lang: id
+author: Maafin Aku Project
+
+# Pengaturan lainnya
+markdown: kramdown
+plugins:
+  - jekyll-seo-tag
